@@ -69,7 +69,7 @@ export default {
       isListItemsLoading: false,
       hasListItemsLoaded: false,
       hasListItemsErrored: false,
-      listItemsErrorMessage: '',
+      listItemsErrorMessage: 'There was an error loading books...',
       isShowBookDetails: false,
       bookDetailsData: {}
     }
@@ -158,6 +158,8 @@ export default {
                 this.listItemsErrorMessage = 'There was an error loading books...';
                 break;
             }
+          } else {
+            this.listItemsErrorMessage = 'There was an error loading books...';
           }
         })
         .finally(() => {
