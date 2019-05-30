@@ -190,7 +190,7 @@ body {
   margin: 0;
   display: flex;
   justify-content: center;
-  height: 100%;
+  overflow-y: scroll;
 }
 h1, p {
   text-align: center;
