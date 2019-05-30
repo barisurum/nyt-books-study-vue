@@ -1,7 +1,7 @@
 <template>
   <div class="cnt-books-list">
     <ul v-if="hasListItemsLoaded && numListItems > 0">
-      <li v-on:click="emitBookItemClicked(index, $event)" class="li-book-item" v-for="(item, index) in listItems">
+      <li v-bind:key="index" v-on:click="emitBookItemClicked(index, $event)" class="li-book-item" v-for="(item, index) in listItems">
         <div class="wrp-book-info">
           <h4 class="heading-book-title">
             {{ item.title }}
@@ -28,7 +28,9 @@ export default {
     },
     listItems: {
       type: Array,
-      default: []
+      default: function() {
+        return [];
+      }
     },
     numListItems: {
       type: Number,
@@ -56,7 +58,7 @@ export default {
     }
   },
   methods: {
-    emitBookItemClicked: function(index, event) {
+    emitBookItemClicked: function(index) {
       if (this.isClickable) {
         this.$emit('onBookItemClicked', index);
       }
