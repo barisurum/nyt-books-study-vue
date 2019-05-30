@@ -40,8 +40,6 @@
 <script>
 import axios from 'axios';
 axios.defaults.baseURL = 'https://api.nytimes.com/svc/books/v3/'
-axios.defaults.params = {}
-axios.defaults.params['api-key'] = 'eCOuG5auSeRmK0dkGkJQVMiSbNL52EaA'
 
 import CategoryWidget from './components/CategoryWidget.vue'
 import BookList from './components/BookList.vue'
@@ -58,6 +56,7 @@ export default {
   },
   data() {
     return {
+      apiKey: 'eCOuG5auSeRmK0dkGkJQVMiSbNL52EaA',
       paginationRange: 20,
       categoryOptions: null,
       categories: [],
@@ -92,7 +91,10 @@ export default {
       this.hasCategoriesLoaded = false;
       this.hasCategoriesErrored = false;
 
-      axios.get('lists/names.json')
+      const params = {
+        'api-key': this.apiKey
+      };
+      axios.get('lists/names.json', {params})
       .then((response) => {
         const {data} = response;
         this.categories = data.results;
@@ -125,7 +127,8 @@ export default {
 
         let url = 'lists';
         let params = {
-          offset
+          offset,
+          'api-key': this.apiKey
         };
         if (hasPublishedDate) {
           url += '/' + categoryOptions.publishedDate + '/' + categoryOptions.encodedCategoryName + '.json'
