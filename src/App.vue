@@ -75,10 +75,13 @@ export default {
     }
   },
   methods: {
-    unifyListResults: function(results) {
+    unifyListResults: function(results, publishedDate) {
       return results.map((item) => {
         if (item.hasOwnProperty('book_details')) {
           item = {...item, ...item.book_details[0]};
+        }
+        if (publishedDate !== '') {
+          item['published_date'] = publishedDate;
         }
         return item;
       });
@@ -142,7 +145,11 @@ export default {
           const {data} = response;
 
           const results = (hasPublishedDate ? data.results.books : data.results);
-          this.listItems = this.unifyListResults(results);
+          let publishedDate = '';
+          if (hasPublishedDate) {
+            publishedDate = data.results.published_date;
+          }
+          this.listItems = this.unifyListResults(results, publishedDate);
 
           this.numListItems = data.num_results;
           this.hasListItemsLoaded = true;
