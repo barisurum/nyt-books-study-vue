@@ -52,7 +52,7 @@ export default {
     numListItems: function() {
       if (this.activePaginationNumber === 1) {
         const offset = Math.floor(this.numListItems / this.paginationRange);
-        this.countPaginationButtons = (offset === 0 ? 1 : offset);
+        this.countPaginationButtons = offset + 1;
       }
     }
   }
